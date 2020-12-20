@@ -1,0 +1,30 @@
+body {
+	font-family: cursive;
+}
+.gen_bk {
+background-color: #FFC0CB;
+}
+.main_font {
+color: #423189;
+font-size: large;
+}
+.list_font {
+	background-color: #B76E79;
+	width: 300px;
+}
+.my_font {
+	font-size: xx-large;
+	font-weight: bold;
+}
+.my_border {
+	border: thick;
+}
+table {
+	border: 3px solid black;
+	border-collapse: collapse;
+	font-weight: normal;
+}
+.header_font {
+	background-color: #B76E79;
+	font-weight: 100;
+}
