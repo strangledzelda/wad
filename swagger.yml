@@ -1,0 +1,113 @@
+openapi: 3.0.1
+info:
+  title: products-artmagrepository_store-nomenclature-v1
+  description: "Artmag repository API \n\nFor this sample, you can use the API key `fCvGXSXdpJ4pHtLLlAdQGItA3F6smlaf` to test the authorization filters. "
+  version: 3.0.0
+  contact:
+    email: stanislav.voronov_ext@leroymerlin.ru
+servers:
+  -
+    url: 'https://dev-api-internal-op.apigee.lmru.tech/products/artmagrepository/nomenclature/v1'
+  -
+    url: 'https://test-api-internal-op.apigee.lmru.tech/products/artmagrepository/nomenclature/v1'
+  -
+    url: 'https://preprod-api-internal-op.apigee.lmru.tech/products/artmagrepository/nomenclature/v1'
+paths:
+  /stores:
+    post:
+      tags:
+        - artmag-controller
+      description: 'Get products in stores with vatCodeId/vatValue/top info'
+      operationId: byStores
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductsByStoresRequest'
+        required: true
+      responses:
+        '200':
+          description: 'default response'
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/goodResponse'
+        '400':
+          description: 'default response'
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 'default response'
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    ProductsByStoresRequest:
+      type: object
+      properties:
+        products:
+          uniqueItems: true
+          type: array
+          example:
+            - productId
+          items:
+            type: string
+            example: '["productId"]'
+        stores:
+          uniqueItems: true
+          type: array
+          example:
+            - storeId
+          items:
+            type: string
+            example: '["storeId"]'
+        attributes:
+          uniqueItems: true
+          type: array
+          example:
+            - top
+            - vatRateValue
+            - vatRateCode
+          items:
+            type: string
+            example: '["top","vatRateValue","vatRateCode"]'
+    goodResponse:
+      type: object
+      properties:
+        product:
+          type: object
+          properties:
+            store:
+              type: object
+              properties:
+                attribute1:
+                  type: string
+                attribute2:
+                  type: string
+                attribute3:
+                  type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+security:
+  -
+    ApiKeyAuth: []
